@@ -1,4 +1,4 @@
-#include <WiFi.h>
+ #include <WiFi.h>
 #include <ESPmDNS.h>
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
@@ -6,6 +6,11 @@
 const char* ssid = "LeedsHackspace";
 const char* password = "blinkyLED";
 
+
+WebServer server;
+
+bool ota_flag = true;
+uint16_t time_elapsed = 0;
 
 
 
@@ -64,13 +69,18 @@ void setup() {
   Serial.println("Ready");
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
-
+  
+ server.on("/restart",[](){
+    server.send(200,"text/plain", "restarting...");
+    delay(100);
+    ESP.restart();
+    
+  });
+  server.begin();
 
   
 }
 
-bool ota_flag = true;
-uint16_t time_elapsed = 0;
 
 void loop() {
   if(ota_flag)
@@ -84,4 +94,5 @@ void loop() {
     }
     ota_flag = false;
   }
+  server.handleClient();
 }

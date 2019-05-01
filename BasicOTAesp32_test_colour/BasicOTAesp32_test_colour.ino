@@ -5,6 +5,12 @@
 #include <WebServer.h>
 const char* ssid = "LeedsHackspace";
 const char* password = "blinkyLED";
+
+WebServer server;
+
+bool ota_flag = true;
+uint16_t time_elapsed = 0;
+
 //#define FASTLED_ESP8266_RAW_PIN_ORDER
 //#define FASTLED_ALLOW_INTERRUPTS 0
 #include <FastLED.h>
@@ -85,7 +91,13 @@ void setup() {
 
 
 
-  
+   server.on("/restart",[](){
+    server.send(200,"text/plain", "restarting...");
+    delay(100);
+    ESP.restart();
+    
+  });
+  server.begin();
 
 
     delay( 3000 ); // power-up safety delay
@@ -96,8 +108,7 @@ void setup() {
     currentBlending = LINEARBLEND;
 
 }
-bool ota_flag = true;
-uint16_t time_elapsed = 0;
+
 
 void loop() {
   if(ota_flag)
@@ -110,8 +121,11 @@ void loop() {
      
     }
     ota_flag = false;
-  }
- 
+   }
+   server.handleClient();
+   
+// add loop code after here 
+
     ChangePalettePeriodically();
     
     static uint8_t startIndex = 0;
