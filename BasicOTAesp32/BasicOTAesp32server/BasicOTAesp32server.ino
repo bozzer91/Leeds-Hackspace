@@ -3,14 +3,15 @@
 #include <WiFiUdp.h>
 #include <ArduinoOTA.h>
 #include <WebServer.h>
-const char* ssid = "LeedsHackspace";
-const char* password = "blinkyLED";
+
+const char* ssid = "LeedsHackspace"; //wifi name
+const char* password = "blinkyLED"; / wifi password 
 
 
 WebServer server;
 
-bool ota_flag = true;
-uint16_t time_elapsed = 0;
+bool ota_flag = true;  // part of the delay loop 
+uint16_t time_elapsed = 0; // part of the delay loop
 
 
 
@@ -25,18 +26,23 @@ void setup() {
    
   }
 
+/////////////////////////////////////////////////////// options for securety /////////////////////////
   // Port defaults to 3232
   // ArduinoOTA.setPort(3232);
 
   // Hostname defaults to esp3232-[MAC]
-  ArduinoOTA.setHostname("The Wall");
+  ArduinoOTA.setHostname("The Wall"); // name that apears in the arduino ide port selection 
 
   // No authentication by default
-  ArduinoOTA.setPassword("admin");
+  ArduinoOTA.setPassword("admin"); // need this password when up laoding 
 
   // Password can be set with it's md5 value as well
   // MD5(admin) = 21232f297a57a5a743894a0e4a801fc3
   // ArduinoOTA.setPasswordHash("21232f297a57a5a743894a0e4a801fc3");
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
   ArduinoOTA
     .onStart([]() {
@@ -80,10 +86,10 @@ void setup() {
 
   
 }
-
+//////////////////////////////////////////  set of set up for leds after here ////////////////////////////////////////////////////
 
 void loop() {
-  if(ota_flag)
+  if(ota_flag)// this strats the flag that makes the code waite 20 secondfs for you to upload new code before running the rest of the loop
   {
     while(time_elapsed < 20000)
     {
@@ -92,7 +98,9 @@ void loop() {
      delay(100);
      
     }
-    ota_flag = false;
+    ota_flag = false; // this ends the loop flag delay 
   }
-  server.handleClient();
+  server.handleClient(); // this keeps a look out for the server reset 
+  
+  ///////////////////////////////////////////////////////// rest of program after here /////////////////////////////////////////
 }
