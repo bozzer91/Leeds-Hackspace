@@ -5,7 +5,7 @@
 #include <WebServer.h>
 
 const char* ssid = "LeedsHackspace"; //wifi name
-const char* password = "blinkyLED"; / wifi password 
+const char* password = "blinkyLED"; // wifi password 
 
 
 WebServer server;
