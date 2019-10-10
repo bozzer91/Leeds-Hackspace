@@ -31,7 +31,7 @@ int brightness = 0;    // how bright the LED is colour
 ////// led colours ///
 //int white = (255, 255, 255);// this degines white as a coours 
 
-int RandomRed[]={ 0, 255, 40, 70, 0, 125, 176 };
+int RandomRed[]={ 0, 255, 40, 70, 0, 125, 176 }; // this is a set of random numbers to set red at differnt levels 
  
 
 void setup() {
@@ -146,17 +146,26 @@ void loop() {
         FastLED.show(); 
         
    /////////////////////////////////////////////////St jameses /////////////
-  long randnumber1;
-  randomSeed(analogRead(0));
-  randnumber1 = random(7);
-   delay(500);
-        leds[51]= CRGB( RandomRed[randnumber1],40,120);
+  long randnumber1; // this i beleave sets the radom number ??
+  randomSeed(analogRead(0)); // this sets the random numer to read from pin A0 this will help make the random number 
+  randnumber1 = random(7);// this sets randnumber1 to be between 0 and 6 ( is no min number is set it wil default to 0 and the max number is always one less then what is set ) 
+  
+        leds[51]= CRGB( RandomRed[randnumber1],40,120); // random red links to the random numebers up on line 34 and randnumber1 selects one of the numbers 
      //   leds[52]= CRGB( white);
       //  leds[53]= CRGB( white);
        // leds[54]= CRGB( white);
         //leds[55]= CRGB( white);
         //leds[56]= CRGB( white);
-        
-        delay(30); 
+     delay(500); // need to fine a way to delay the random numbers without using delay as this delays the hole program 
+
+
+
+//////////////////////////////////////////           //////////////////////
+
+
+
+
+      
+        delay(30);// this delay is there to stop glitching 
         
 }
