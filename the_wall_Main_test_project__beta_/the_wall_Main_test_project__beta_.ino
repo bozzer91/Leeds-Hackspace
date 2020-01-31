@@ -32,7 +32,7 @@ int brightness = 0;    // how bright the LED is colour
 //int white = (255, 255, 255);// this degines white as a coours 
 
 int RandomRed[]={ 0, 255, 40, 70, 0, 125, 176 }; // this is a set of random numbers to set red at differnt levels 
- 
+int onnoff[]={0, 255, 255, 0, 255, 0, 0 }; // hopfuly this can be used to randomy turn a colour onn and off 
 
 void setup() {
   Serial.begin(115200);
@@ -151,7 +151,7 @@ void loop() {
   randnumber1 = random(7);// this sets randnumber1 to be between 0 and 6 ( is no min number is set it wil default to 0 and the max number is always one less then what is set ) 
   
         leds[51]= CRGB( RandomRed[randnumber1],40,120); // random red links to the random numebers up on line 34 and randnumber1 selects one of the numbers 
-     //   leds[52]= CRGB( white);
+       leds[52]= CRGB( 0, 0, onnoff[randnumber1]); // this shoud hopfuly randomy turn the blue onn and off 
       //  leds[53]= CRGB( white);
        // leds[54]= CRGB( white);
         //leds[55]= CRGB( white);
